@@ -1,16 +1,7 @@
-##Integración contínua con CircleCI y Heroku
+##Despliegue continuo de aplicaciones SpringBoot con CircleCI y Heroku
 
 [Documentación CircleCI para Heroku:](https://circleci.com/docs/continuous-deployment-with-heroku)
 
-###Parte I.
-
-1. Retome el proyecto Web desarrollado en el laboratorio antepasado (la herramientade registro de consultas a pacientes), e integre en el mismo el esquema de DAOs del laboratorio pasado. Recuerde que además de los fuentes, debe incorporar las dependencias y demás 'plugins' que se estén usando en el POM.xml de este último.
-
-2. Haga una nueva clase que implemente la interfaz "ServiciosPacientes", pero que a diferencia de la disponible actualmente (ServiciosPacientesStub), maneje un esquema de persistencia real, a través del esquema de DAOs implementado.
-
-3. Actualice los cambios realizados en su repositorio de GitHUB.
-
-###Parte II.
 
 1. Cree (si no la tiene aún) una cuenta en el proveedor PAAS Heroku ([www.heroku.com](www.heroku.com)).
 2. Acceda a su cuenta en Heroku y cree una nueva aplicación:
@@ -62,7 +53,15 @@ documentación de pruebas, cubrimiento de pruebas y análisis estático (cuando 
 9. Rectifique que en el pom.xml, en la fase de construcción, se tenga el siguiente plugin (es decir, dentro de <build><plugins>):
 
 	```xml
-	<!-- Plugin configuration for Heroku compatibility. -->            <plugin>                <groupId>org.apache.maven.plugins</groupId>                <artifactId>maven-dependency-plugin</artifactId>                <version>2.1</version>                <executions>                    <execution>                        <phase>package</phase>                        <goals>                            <goal>copy</goal>                        </goals>                        <configuration>                            <artifactItems>                                <artifactItem>                                    <groupId>com.github.jsimone</groupId>                                    <artifactId>webapp-runner</artifactId>                                    <version>8.0.30.2</version>                                    <destFileName>webapp-runner.jar</destFileName>                                </artifactItem>                            </artifactItems>                        </configuration>                    </execution>                </executions>            </plugin> 	```           
+	<build>  
+	    <plugins>
+	        <plugin>
+	            <groupId>org.springframework.boot</groupId>
+	            <artifactId>spring-boot-maven-plugin</artifactId>
+	        </plugin>
+	    </plugins>
+	</build>  
+ 	```           
 	
 	Nota: Si en el pom.xml ya hay otro plugin con el mismo <groupId> y <artifactId>, reemplácelo por el anteriormente mostrado.
 
@@ -77,8 +76,9 @@ java.runtime.version=1.8
 	Procfile 
 
 	```
-web:    java $JAVA_OPTS -jar target/dependency/webapp-runner.jar --port $PORT target/*.war
-```
+	web: java $JAVA_OPTS -Dserver.port=$PORT -jar target/*.jar 
+
+	```
 
 10. El ambiente de despliegue contínuo requiere también un archivo de configuración 'circle.yml' en la raíz del proyecto, en el cual se indica (entre otras cosas) en qué aplicación de Heroku se debe desplegar la aplicación que está en GitHUB. Puede basarse en el siguiente archivo, teniendo en cuenta que se debe ajustar el parámetro 'appname': [https://github.com/PDSW-ECI/base-proyectos/blob/master/circle.yml](https://github.com/PDSW-ECI/base-proyectos/blob/master/circle.yml)
 
