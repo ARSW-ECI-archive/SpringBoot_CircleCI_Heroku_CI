@@ -22,11 +22,11 @@
 	![](img/AccountSettings.png)
 	![](img/AddKey.png)
 
-6. Conecte su aplicación (la desarrollada en la parte I) con el ambiente de integración contínua. Abra la opción de 'agregar proyecto':
+6. Conecte su aplicación con el ambiente de integración contínua. Abra la opción de 'agregar proyecto':
 
 	![](img/ConnectProject.png)
 	
-	Seleccione el proyecto de la parte I, y seleccione 'build project'.
+	Seleccione su proyecto, y seleccione 'build project'.
 	
 	![](img/AddProjects.png)
 
@@ -61,7 +61,8 @@ documentación de pruebas, cubrimiento de pruebas y análisis estático (cuando 
 	        </plugin>
 	    </plugins>
 	</build>  
- 	```           
+
+ 	```           
 	
 	Nota: Si en el pom.xml ya hay otro plugin con el mismo <groupId> y <artifactId>, reemplácelo por el anteriormente mostrado.
 
