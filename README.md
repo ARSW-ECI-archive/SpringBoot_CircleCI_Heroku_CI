@@ -1,4 +1,4 @@
-##Despliegue continuo de aplicaciones SpringBoot con CircleCI y Heroku
+## Despliegue continuo de aplicaciones SpringBoot con CircleCI y Heroku
 
 [Documentación CircleCI para Heroku:](https://circleci.com/docs/continuous-deployment-with-heroku)
 
@@ -71,8 +71,8 @@ documentación de pruebas, cubrimiento de pruebas y análisis estático (cuando 
 	system.properties
 
 	```
-java.runtime.version=1.8
-```
+	java.runtime.version=1.8
+	```
 
 	Procfile 
 
